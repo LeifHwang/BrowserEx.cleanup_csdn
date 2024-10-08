@@ -1,0 +1,4 @@
+{
+  "pluginTitle": { "message": "Cleanup! CSDN" },
+  "pluginDesc": { "message": "自动过滤搜索引擎查询结果(Baidu, Bing)中的[csdn]条目" }
+}

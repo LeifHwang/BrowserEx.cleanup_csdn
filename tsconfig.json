@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    // "module": "es6",
+    // "moduleResolution": "Bundler",
+    // "esModuleInterop": true,
+    "removeComments": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "types": ["chrome"],
+
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

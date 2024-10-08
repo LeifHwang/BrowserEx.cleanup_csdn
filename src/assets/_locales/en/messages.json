@@ -1,0 +1,4 @@
+{
+  "pluginTitle": { "message": "Cleanup! CSDN" },
+  "pluginDesc": { "message": "Automatically filter [csdn] entries in search engine query results (such as Baidu, Bing, etc...)" }
+}
