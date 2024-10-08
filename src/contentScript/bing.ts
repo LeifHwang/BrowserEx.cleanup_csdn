@@ -17,7 +17,7 @@ if (formEl && searchInputEl && options.inputFilter) {
       searchInputEl.value = newVal;
       formEl.submit();
 
-      console.log(`[${chrome.i18n.getMessage('pluginTitle')}] content_script rewrite search input!`);
+      console.log(`[Cleanup! CSDN] content_script rewrite search input!`);
     }
   });
 
@@ -71,7 +71,7 @@ document.addEventListener(
       urlObj.searchParams.set('q', newQ);
       window.location.assign(urlObj.href);
 
-      console.log(`[${chrome?.i18n?.getMessage('pluginTitle')}] content_script redirect!`);
+      console.log(`[Cleanup! CSDN] content_script redirect!`);
     }
   },
   { capture: true }

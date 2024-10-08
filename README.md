@@ -1,4 +1,4 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Cleanup! CSDN
+# <img src="src/assets/icons/icon_48.png" width="45" align="left"> Cleanup! CSDN
 
 ## Features
 

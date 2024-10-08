@@ -24,7 +24,7 @@ document.getElementById('su')?.addEventListener(
       if (newVal) {
         inputEl.value = newVal;
 
-        console.log(`[${chrome?.i18n?.getMessage('pluginTitle')}] content_script rewrite search input!`);
+        console.log(`[Cleanup! CSDN] content_script rewrite search input!`);
       }
     }
   },
@@ -104,7 +104,7 @@ document.addEventListener(
         urlObj.searchParams.set('wd', newWd);
         window.location.assign(urlObj.href);
 
-        console.log(`[${chrome.i18n.getMessage('pluginTitle')}] content_script redirect!`);
+        console.log(`[Cleanup! CSDN] content_script redirect!`);
       }
     }
   },

@@ -22,7 +22,7 @@
       "js": ["js/contentScript/baidu.js"]
     },
     {
-      "matches": ["https://cn.bing.com/*"],
+      "matches": ["https://cn.bing.com/*", "https://www.bing.com/*"],
       "js": ["js/contentScript/bing.js"]
     }
   ]
