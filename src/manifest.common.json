@@ -11,19 +11,18 @@
     "48": "icons/icon_48.png",
     "128": "icons/icon_128.png"
   },
-  "minimum_chrome_version": "61",
-  "permissions": ["storage"],
+  "permissions": ["storage", "webNavigation", "webRequestBlocking", "webRequest", "declarativeNetRequest"],
 
-  "options_page": "pages/options.html",
+  "options_page": "options/options.html",
 
   "content_scripts": [
     {
       "matches": ["https://www.baidu.com/*"],
-      "js": ["js/contentScript/baidu.js"]
+      "js": ["scripts/baidu.js"]
     },
     {
       "matches": ["https://cn.bing.com/*", "https://www.bing.com/*"],
-      "js": ["js/contentScript/bing.js"]
+      "js": ["scripts/bing.js"]
     }
   ]
 }

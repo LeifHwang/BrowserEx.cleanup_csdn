@@ -2,34 +2,29 @@ import fs from 'fs';
 import path from 'path';
 
 import typescript from '@rollup/plugin-typescript';
-import copy from 'rollup-plugin-copy';
 import clear from 'rollup-plugin-clear';
 
 export default [
   {
     input: 'src/pages/options/index.ts',
     output: {
-      file: 'dist/js/options.js',
+      file: 'dist/options/options.js',
       format: 'esm',
     },
-    plugins: [
-      clear({ targets: ['dist'] }),
-
-      typescript(),
-
-      {
-        name: 'copy-options.html',
-        generateBundle: () => {
-          fs.mkdirSync('dist/pages', { recursive: true });
-          fs.cpSync('src/pages/options/index.html', 'dist/pages/options.html');
-        },
-      },
-    ],
+    plugins: [clear({ targets: ['dist'] }), typescript()],
+  },
+  {
+    input: 'src/background.ts',
+    output: {
+      file: 'dist/background.js',
+      format: 'esm',
+    },
+    plugins: [typescript()],
   },
   {
     input: 'src/contentScript/baidu.ts',
     output: {
-      file: 'dist/js/contentScript/baidu.js',
+      file: 'dist/scripts/baidu.js',
       format: 'esm',
     },
     plugins: [typescript()],
@@ -37,16 +32,19 @@ export default [
   {
     input: 'src/contentScript/bing.ts',
     output: {
-      file: 'dist/js/contentScript/bing.js',
+      file: 'dist/scripts/bing.js',
       format: 'esm',
     },
     plugins: [
       typescript(),
-      copy({ targets: [{ src: 'src/manifest.json', dest: 'dist' }] }),
 
       {
         name: 'copy-assets',
         generateBundle: () => {
+          // copy options.html
+          fs.cpSync('src/pages/options/index.html', 'dist/options/options.html');
+
+          // copy assets
           const assets = fs.readdirSync('src/assets');
           assets.forEach((file) => {
             const oldPath = path.resolve('src/assets', file);
@@ -58,6 +56,25 @@ export default [
               fs.cpSync(oldPath, newPath, { recursive: true });
             }
           });
+        },
+      },
+      {
+        name: 'generate-manifest.json',
+        generateBundle: () => {
+          let manifest = JSON.parse(fs.readFileSync('./src/manifest.common.json'));
+          const target = process.env.TARGET;
+
+          if (target === 'chrome') {
+            const chrome = JSON.parse(fs.readFileSync('./src/manifest.chrome.json'));
+
+            manifest = { ...manifest, ...chrome };
+          } else if (target === 'firefox') {
+            const firefox = JSON.parse(fs.readFileSync('./src/manifest.firefox.json'));
+
+            manifest = { ...manifest, ...firefox };
+          }
+
+          fs.writeFileSync('dist/manifest.json', JSON.stringify(manifest, '', '\t'), 'utf-8');
         },
       },
     ],

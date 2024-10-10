@@ -25,18 +25,6 @@ if (formEl && searchInputEl && options.inputFilter) {
   searchInputEl.addEventListener('focus', (ev) => (searchInputEl.value = trimSuffix(searchInputEl.value)));
 }
 
-const checkBingSearchUrl = (url?: string | null) => {
-  if (!url) {
-    return undefined;
-  }
-
-  const urlObj = new URL(url, document.location.origin);
-  if (urlObj.host === 'cn.bing.com' && urlObj.pathname === '/search') {
-    return urlObj;
-  }
-  return undefined;
-};
-
 // 相关搜索链接或其他推荐链接
 document.addEventListener(
   'click',
@@ -57,8 +45,12 @@ document.addEventListener(
       href = linkEl?.href;
     } while (linkEl);
 
-    const urlObj = checkBingSearchUrl(href);
-    if (!urlObj) {
+    if (!href) {
+      return;
+    }
+
+    const urlObj = new URL(href, document.location.origin);
+    if (urlObj.host === 'cn.bing.com' && urlObj.pathname === '/search') {
       return;
     }
 
