@@ -8,7 +8,10 @@
 
 ## Install
 
-[**Edge** extension](https://microsoftedge.microsoft.com/addons/detail/kkofkmgjnlolgljejjdamjdadfgkjjic)
+[**Edge** extension](https://microsoftedge.microsoft.com/addons/detail/hfdmmonckoebgdohhllibdgboclbefol)
+
+[**Firefox** extension](https://addons.mozilla.org/addon/cleanup-csdn/)
+
 
 ## Contribution
 
