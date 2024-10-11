@@ -73,6 +73,9 @@ document.addEventListener(
   { capture: true }
 );
 
-const xhrInterceptor = document.createElement('script');
-xhrInterceptor.src = chrome.runtime.getURL('scripts/xhrInterceptor.js');
-(document.head || document.documentElement).appendChild(xhrInterceptor);
+// suggestions
+if (options.urlFilter) {
+  const xhrInterceptor = document.createElement('script');
+  xhrInterceptor.src = chrome.runtime.getURL('scripts/xhrInterceptor.js');
+  (document.head || document.documentElement).appendChild(xhrInterceptor);
+}

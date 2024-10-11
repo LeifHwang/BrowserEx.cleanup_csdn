@@ -34,6 +34,8 @@ document.getElementById('su')?.addEventListener(
 document.getElementById('kw')?.addEventListener('focus', (ev) => {
   const el = ev.target as HTMLInputElement;
   el.value = trimSuffix(el.value);
+  
+  console.log(`[Cleanup! CSDN] content_script auto trim end " -csdn"!`);
 });
 
 // 搜索框提示条目
