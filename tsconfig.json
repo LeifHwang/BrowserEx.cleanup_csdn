@@ -4,7 +4,7 @@
     // "module": "es6",
     // "moduleResolution": "Bundler",
     // "esModuleInterop": true,
-    "removeComments": false,
+    "removeComments": true,
     "strict": true,
     "skipLibCheck": true,
     "allowJs": true,

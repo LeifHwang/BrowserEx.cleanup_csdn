@@ -7,34 +7,27 @@ import clear from 'rollup-plugin-clear';
 export default [
   {
     input: 'src/pages/options/index.ts',
-    output: {
-      file: 'dist/options/options.js',
-      format: 'esm',
-    },
+    output: { file: 'dist/options/options.js' },
     plugins: [clear({ targets: ['dist'] }), typescript()],
   },
   {
     input: 'src/background.ts',
-    output: {
-      file: 'dist/background.js',
-      format: 'esm',
-    },
+    output: { file: 'dist/background.js' },
+    plugins: [typescript()],
+  },
+  {
+    input: 'src/contentScript/xhrInterceptor.ts',
+    output: { file: 'dist/scripts/xhrInterceptor.js' },
     plugins: [typescript()],
   },
   {
     input: 'src/contentScript/baidu.ts',
-    output: {
-      file: 'dist/scripts/baidu.js',
-      format: 'esm',
-    },
+    output: { file: 'dist/scripts/baidu.js' },
     plugins: [typescript()],
   },
   {
     input: 'src/contentScript/bing.ts',
-    output: {
-      file: 'dist/scripts/bing.js',
-      format: 'esm',
-    },
+    output: { file: 'dist/scripts/bing.js' },
     plugins: [
       typescript(),
 

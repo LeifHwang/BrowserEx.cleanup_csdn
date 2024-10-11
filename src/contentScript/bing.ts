@@ -22,7 +22,11 @@ if (formEl && searchInputEl && options.inputFilter) {
   });
 
   // 搜索输入框获取输入焦点时，去掉尾部[ -csdn]，方便重新录入
-  searchInputEl.addEventListener('focus', (ev) => (searchInputEl.value = trimSuffix(searchInputEl.value)));
+  searchInputEl.addEventListener('focus', () => {
+    searchInputEl.value = trimSuffix(searchInputEl.value);
+
+    console.log(`[Cleanup! CSDN] content_script auto trim end " -csdn"!`);
+  });
 }
 
 // 相关搜索链接或其他推荐链接
@@ -50,7 +54,7 @@ document.addEventListener(
     }
 
     const urlObj = new URL(href, document.location.origin);
-    if (urlObj.host === 'cn.bing.com' && urlObj.pathname === '/search') {
+    if ((urlObj.host !== 'cn.bing.com' && urlObj.host !== 'www.bing.com') || urlObj.pathname !== '/search') {
       return;
     }
 
@@ -68,3 +72,7 @@ document.addEventListener(
   },
   { capture: true }
 );
+
+const xhrInterceptor = document.createElement('script');
+xhrInterceptor.src = chrome.runtime.getURL('scripts/xhrInterceptor.js');
+(document.head || document.documentElement).appendChild(xhrInterceptor);
