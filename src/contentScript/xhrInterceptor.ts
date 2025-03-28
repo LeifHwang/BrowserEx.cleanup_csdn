@@ -6,8 +6,12 @@ XMLHttpRequest.prototype.open = function (method: string, url: string | URL, asy
 
   xhr.onreadystatechange = function (...args) {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      const urlObj = new URL(xhr.responseURL);
-      if ((urlObj.host === 'cn.bing.com' || urlObj.host === 'www.bing.com') && urlObj.pathname === '/AS/Suggestions') {
+      try {
+        const urlObj = new URL(xhr.responseURL);
+        if (!['cn.bing.com', 'www.bing.com'].includes(urlObj.host) || urlObj.pathname !== '/AS/Suggestions') {
+          return;
+        }
+
         const suggestObj = JSON.parse(xhr.responseText) as { s: { id: string; q: string; t: string; u: string }[] };
         if (suggestObj.s?.length) {
           Object.defineProperty(xhr, 'responseText', {
@@ -28,6 +32,8 @@ XMLHttpRequest.prototype.open = function (method: string, url: string | URL, asy
             }),
           });
         }
+      } catch (error) {
+        // ignore
       }
     }
 

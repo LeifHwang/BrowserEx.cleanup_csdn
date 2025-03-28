@@ -5,29 +5,38 @@ const options = new OptionStorage({ watch: true });
 options.ready();
 
 // 搜索输入框(表单)
-const formEl = document.getElementById('sb_form') as HTMLFormElement;
-const searchInputEl = document.getElementById('sb_form_q') as HTMLInputElement;
-if (formEl && searchInputEl && options.inputFilter) {
-  formEl.addEventListener('submit', (ev) => {
-    const text = searchInputEl.value.trimEnd();
-    const newVal = autoAppendSuffix(text);
-    if (newVal) {
-      ev.preventDefault();
+document.getElementById('sb_form')?.addEventListener('submit', (ev) => {
+  if (!options.inputFilter) {
+    return;
+  }
 
-      searchInputEl.value = newVal;
-      formEl.submit();
+  const formEl = ev.target as HTMLFormElement;
+  const searchInputEl = document.getElementById('sb_form_q') as HTMLInputElement;
+  const text = searchInputEl?.value.trimEnd();
+  const newVal = autoAppendSuffix(text);
+  if (newVal) {
+    ev.preventDefault();
 
-      console.log(`[Cleanup! CSDN] content_script rewrite search input!`);
+    searchInputEl.value = newVal;
+    formEl.submit();
+
+    console.log(`[Cleanup! CSDN] content_script rewrite search input!`);
+  }
+});
+
+// 搜索输入框获取输入焦点时，去掉尾部[ -csdn]，方便重新录入
+document.addEventListener(
+  'focus',
+  (ev) => {
+    const el = ev.target as HTMLInputElement;
+    if (el.value) {
+      el.value = trimSuffix(el.value);
+
+      console.log(`[Cleanup! CSDN] content_script auto trim end " -csdn"!`);
     }
-  });
-
-  // 搜索输入框获取输入焦点时，去掉尾部[ -csdn]，方便重新录入
-  searchInputEl.addEventListener('focus', () => {
-    searchInputEl.value = trimSuffix(searchInputEl.value);
-
-    console.log(`[Cleanup! CSDN] content_script auto trim end " -csdn"!`);
-  });
-}
+  },
+  true
+);
 
 // 相关搜索链接或其他推荐链接
 document.addEventListener(
@@ -77,5 +86,8 @@ document.addEventListener(
 if (options.urlFilter) {
   const xhrInterceptor = document.createElement('script');
   xhrInterceptor.src = chrome.runtime.getURL('scripts/xhrInterceptor.js');
+
   (document.head || document.documentElement).appendChild(xhrInterceptor);
+
+  console.log(`[Cleanup! CSDN] append xhrInterceptor!`);
 }
