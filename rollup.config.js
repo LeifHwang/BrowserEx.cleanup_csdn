@@ -49,6 +49,8 @@ export default [
               fs.cpSync(oldPath, newPath, { recursive: true });
             }
           });
+
+          console.log('assets copied!');
         },
       },
       {
@@ -68,6 +70,8 @@ export default [
           }
 
           fs.writeFileSync('dist/manifest.json', JSON.stringify(manifest, '', '\t'), 'utf-8');
+
+          console.log('manifest merged!');
         },
       },
     ],

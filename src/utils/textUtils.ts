@@ -32,4 +32,17 @@ function trimSuffix(text: string) {
   return text;
 }
 
-export { autoAppendSuffix, trimSuffix };
+function queryRewrite(query: string, join: '+' | '%20') {
+  if (!query) {
+    return undefined;
+  }
+
+  const filter = '-csdn';
+  if (!query.endsWith(filter)) {
+    return query + join + filter;
+  }
+
+  return undefined;
+}
+
+export { autoAppendSuffix, trimSuffix, queryRewrite };
