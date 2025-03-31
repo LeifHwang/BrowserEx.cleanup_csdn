@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_pluginTitle__",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "default_locale": "zh_CN",
   "description": "__MSG_pluginDesc__",
   "homepage_url": "https://github.com/LeifHwang/BrowserEx.cleanup_csdn",
@@ -12,8 +12,6 @@
     "128": "icons/icon_128.png"
   },
   "permissions": ["storage", "tabs"],
-
-  "options_page": "options/options.html",
 
   "content_scripts": [
     {
@@ -26,12 +24,9 @@
     }
   ],
 
-  "web_accessible_resources": [
-    {
-      "resources": ["scripts/xhrInterceptor.js"],
-      "matches": ["https://cn.bing.com/*", "https://www.bing.com/*"]
-    }
-  ],
+  "background": { "service_worker": "background.js", "type": "module" },
 
-  "background": { "service_worker": "background.js", "type": "module" }
+  "action": {
+    "default_icon": "icons/icon_32_off.png"
+  }
 }

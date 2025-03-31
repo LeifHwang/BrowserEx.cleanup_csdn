@@ -1,6 +1,6 @@
 {
   "name": "cleanup_csdn",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A browser extension that can filter [csdn] on the search result list",
   "keywords": [
     "extension",
